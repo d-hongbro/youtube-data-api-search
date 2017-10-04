@@ -1,5 +1,6 @@
-const ENDPOINT = 'https://www.googleapis.com/youtube/v3/search';
+const SEARCH_ENDPOINT = 'https://www.googleapis.com/youtube/v3/search';
 const KEY = 'AIzaSyCSlk6CXiXCryMFytkQ2-11VAO7xzwrzOk';
+const WATCH_ENDPOINT = 'https://www.youtube.com/watch?v=';
 
 function getDataFromApi(searchTerm, callback) {
   const query = {
@@ -8,7 +9,13 @@ function getDataFromApi(searchTerm, callback) {
   	q: `${searchTerm}`,
   	type: 'video'
   }
-  $.getJSON(ENDPOINT, query, callback);
+  $.getJSON(SEARCH_ENDPOINT, query, callback);
+}
+
+function shortenString(str, size) {
+	console.log(`shortenString ${str} ${size}`);
+	// shortens whatever was passed into it with ellipses
+	return str.length > size ? `${str.substr(0, size)}...` : str;
 }
 
 function renderResult(item, index) {
@@ -19,13 +26,13 @@ function renderResult(item, index) {
 	const channelId = item.snippet.channelId;
 	const thumbnail = item.snippet.thumbnails.medium.url;
 	const videoTitle = item.snippet.title;
-	const description  = item.snippet.description;
+	const description  = shortenString(item.snippet.description, 50);
 	// console.log(snippet);
 	return `
-	<div class="js-video-card col-12" data-index="${index}">
+	<div class="js-video-card" data-index="${index}">
 		<div class="js-video-card-main" data-video-id="${videoId}">
 			<div class="js-video-card-main-image">
-				<img src="${thumbnail}" alt="${channelTitle}">
+				<a href="${WATCH_ENDPOINT}${videoId}" target="_blank"><img src="${thumbnail}" alt="${channelTitle}"></a>
 			</div>
 			<div class="js-video-card-main-text">
 				<p class="js-video-title">${videoTitle}</p>
@@ -33,7 +40,7 @@ function renderResult(item, index) {
 			</div>
 		</div>
 		<div class="js-video-card-footer" data-channel-id="${channelId}">
-			<p class="js-view-more" >View more from ${channelTitle}'s channel</p>
+			<button class="js-view-more" >Visit ${channelTitle}'s channel</button>
 		</div>
 	</div>
 	`;
@@ -48,7 +55,7 @@ function displayYoutubeResult(data) {
 function listenToVideoClick() {
 	$('.search-results').on('click', '.js-video-card-main', (event) => {
 		console.log('listenToVideoClick');
-		event.preventDefault();
+		// event.preventDefault();
 		const index = $(event.currentTarget).closest('.js-video-card').data('index');
 		const videoId = $(event.currentTarget).data('video-id');
 		// Going to open the video in a new window or lightbox
