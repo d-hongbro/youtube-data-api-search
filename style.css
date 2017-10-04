@@ -1,0 +1,43 @@
+body {
+	display: flex;
+	justify-content: center;
+}
+
+main {
+
+}
+
+h1 {
+	text-align: center;
+}
+
+.js-search-form {
+	display: flex;
+	justify-content: center;
+}
+
+h2 {
+	text-align: center;
+}
+
+.js-video-card {
+	border: 1px solid black;
+	width: 100%;
+	display: flex;
+}
+
+.js-video-card-main {
+	display: flex;
+}
+
+.js-video-card-main-image {
+	display: inline-flex;
+} 
+
+.js-video-card-main-text {
+	display: inline-block;
+}
+
+.js-video-card-footer {
+	display: flex;
+}
