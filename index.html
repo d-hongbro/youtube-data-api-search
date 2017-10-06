@@ -14,18 +14,35 @@
 </head>
 <body>
 	<main class="row">
-		<div class="col-8">
+		<div class="col-12">
 			<h1>Youtube Video Search</h1>
 			<form action="#" class="js-search-form">
 				<label for="name">Video Name</label>
-				<input type="text" name="name" required>
+				<input id="name" type="text" name="name" required>
 				<button type="submit">Search</button>
 			</form>
 		</div>
-		<div class="col-8">
+		<div class="col-12">
 			<h2>Results</h2>
+			<div class="line"></div>
 			<div class="search-results row"></div>
+			<div class="end-page">
+				<p class="js-end-page-message good hidden">Scroll to load more</p>
+			</div>
 		</div>
 	</main>
+	<div class="lightbox hidden" id="img1">
+		<div class="lightbox-body">
+			<div class="youtube-object">
+				<object class="responsive" data="" width="640" height="480"></object>
+			</div>
+			<div class="lightbox-link">
+				<a class="js-view-more responsive" href="" target="_blank">Visit Channel</a>
+			</div>
+		</div>
+	</div>
+<!-- 	<a href="#_" class="lightbox" id="img1">
+  		<img src="http://insomnia.rest/images/screens/main.png">
+	</a> -->
 </body>
 </html>
