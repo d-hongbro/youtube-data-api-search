@@ -50,14 +50,7 @@ function shortenString(str, size) {
 	return str.length > size ? `${str.substr(0, size)}...` : str;
 }
 
-// function renderPagination(data) {
-// 	console.log(`renderPagination ran`);
-// 	const nextPageToken = data.nextPageToken;
-// 	const prevPageToken = 
-// }
-
 function renderResult(item, index) {
-	// console.log(item.snippet);
 	const snippet = item.snippet;
 	const videoId = item.id.videoId;
 	const channelTitle = item.snippet.channelTitle;
@@ -65,13 +58,14 @@ function renderResult(item, index) {
 	const thumbnail = item.snippet.thumbnails.medium.url;
 	const videoTitle = item.snippet.title;
 	const description  = shortenString(item.snippet.description, 60);
-	// console.log(snippet);
 	return `
 <div class="col-4">
 	<div class="js-video-card" data-index="${index}" data-channel-id="${channelId}">
 		<div class="js-video-card-main" data-video-id="${videoId}">
 			<div class="js-video-card-main-image">
-				<img src="${thumbnail}" alt="${channelTitle}">
+				<a href="#">
+					<img src="${thumbnail}" alt="${channelTitle}">
+				</a>
 			</div>
 			<div class="js-video-card-main-text">
 				<p class="js-video-title">${videoTitle}</p>
@@ -82,10 +76,6 @@ function renderResult(item, index) {
 </div>
 	`;
 }
-
-		// <div class="js-video-card-footer" data-channel-id="${channelId}">
-		// 	<button class="js-view-more" >Visit Channel</button>
-		// </div>
 
 function displayYoutubeResult(data) {
 	console.log(data);
@@ -128,7 +118,7 @@ function listenToLightBoxExit() {
 function listenToImageClick() {
 	$('.search-results').on('click', '.js-video-card-main', (event) => {
 		console.log('listenToVideoClick');
-		// event.preventDefault();
+		event.preventDefault();
 		const index = $(event.currentTarget).closest('.js-video-card').data('index');
 		const videoId = $(event.currentTarget).data('video-id');
 		const videoEmbed = `${EMBED_ENDPOINT}${videoId}`;
@@ -138,6 +128,7 @@ function listenToImageClick() {
 		$('object').attr("data", videoEmbed);
 		$('.js-view-more').attr('href',channelLink);
 		$('.lightbox').toggleClass('hidden');
+		$('.js-view-more').focus();
 	});
 }
 
